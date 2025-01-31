@@ -1,0 +1,404 @@
+{
+    "graph": {
+        "nodes": {
+            "0": {
+                "ref": "conanfile",
+                "id": "0",
+                "recipe": "Cli",
+                "package_id": null,
+                "prev": null,
+                "rrev": null,
+                "rrev_timestamp": null,
+                "prev_timestamp": null,
+                "remote": null,
+                "binary_remote": null,
+                "build_id": null,
+                "binary": null,
+                "invalid_build": false,
+                "info_invalid": null,
+                "name": null,
+                "user": null,
+                "channel": null,
+                "url": null,
+                "license": null,
+                "author": null,
+                "description": null,
+                "homepage": null,
+                "build_policy": null,
+                "upload_policy": null,
+                "revision_mode": "hash",
+                "provides": null,
+                "deprecated": null,
+                "win_bash": null,
+                "win_bash_run": null,
+                "default_options": null,
+                "options_description": null,
+                "version": null,
+                "topics": null,
+                "package_type": "unknown",
+                "languages": [],
+                "settings": {
+                    "os": "Macos",
+                    "arch": "armv8",
+                    "compiler": "apple-clang",
+                    "compiler.cppstd": "gnu17",
+                    "compiler.libcxx": "libc++",
+                    "compiler.version": "15",
+                    "build_type": "Release"
+                },
+                "options": {},
+                "options_definitions": {},
+                "generators": [],
+                "python_requires": null,
+                "system_requires": {},
+                "recipe_folder": null,
+                "source_folder": null,
+                "build_folder": null,
+                "generators_folder": null,
+                "package_folder": null,
+                "immutable_package_folder": null,
+                "cpp_info": {
+                    "root": {
+                        "includedirs": [
+                            "include"
+                        ],
+                        "srcdirs": null,
+                        "libdirs": [
+                            "lib"
+                        ],
+                        "resdirs": null,
+                        "bindirs": [
+                            "bin"
+                        ],
+                        "builddirs": null,
+                        "frameworkdirs": null,
+                        "system_libs": null,
+                        "frameworks": null,
+                        "libs": null,
+                        "defines": null,
+                        "cflags": null,
+                        "cxxflags": null,
+                        "sharedlinkflags": null,
+                        "exelinkflags": null,
+                        "objects": null,
+                        "sysroot": null,
+                        "requires": null,
+                        "properties": null,
+                        "exe": null,
+                        "type": null,
+                        "location": null,
+                        "link_location": null,
+                        "languages": null
+                    }
+                },
+                "conf_info": {},
+                "label": "cli",
+                "vendor": false,
+                "dependencies": {
+                    "1": {
+                        "ref": "hello/1.0",
+                        "require": "hello/1.0",
+                        "run": false,
+                        "libs": true,
+                        "skip": false,
+                        "test": false,
+                        "force": false,
+                        "direct": true,
+                        "build": false,
+                        "transitive_headers": null,
+                        "transitive_libs": null,
+                        "headers": true,
+                        "package_id_mode": null,
+                        "visible": true
+                    },
+                    "2": {
+                        "ref": "openssl/1.1.1c",
+                        "require": "openssl/1.1.1c",
+                        "run": false,
+                        "libs": true,
+                        "skip": false,
+                        "test": false,
+                        "force": false,
+                        "direct": false,
+                        "build": false,
+                        "transitive_headers": null,
+                        "transitive_libs": null,
+                        "headers": false,
+                        "package_id_mode": null,
+                        "visible": true
+                    }
+                },
+                "context": "host",
+                "test": false
+            },
+            "1": {
+                "ref": "hello/1.0#668377a3b0e102d0e7069935209be9b5",
+                "id": "1",
+                "recipe": "Cache",
+                "package_id": "905f763129246a629a73bc20c8c67fa0a9cc2237",
+                "prev": "e2f0601773f36b0e99d7a95b9de015a4",
+                "rrev": "668377a3b0e102d0e7069935209be9b5",
+                "rrev_timestamp": 1738279771.063157,
+                "prev_timestamp": null,
+                "remote": null,
+                "binary_remote": null,
+                "build_id": null,
+                "binary": "Build",
+                "invalid_build": false,
+                "info_invalid": null,
+                "name": "hello",
+                "user": null,
+                "channel": null,
+                "url": "<Package recipe repository url here, for issues about the package>",
+                "license": "<Put the package license here>",
+                "author": "<Put your name here> <And your email here>",
+                "description": "<Description of hello package here>",
+                "homepage": null,
+                "build_policy": null,
+                "upload_policy": null,
+                "revision_mode": "hash",
+                "provides": null,
+                "deprecated": null,
+                "win_bash": null,
+                "win_bash_run": null,
+                "default_options": {
+                    "shared": false,
+                    "fPIC": true
+                },
+                "options_description": null,
+                "version": "1.0",
+                "topics": [
+                    "<Put some tag here>",
+                    "<here>",
+                    "<and here>"
+                ],
+                "package_type": "static-library",
+                "languages": [],
+                "settings": {
+                    "os": "Macos",
+                    "arch": "armv8",
+                    "compiler": "apple-clang",
+                    "compiler.cppstd": "gnu17",
+                    "compiler.libcxx": "libc++",
+                    "compiler.version": "15",
+                    "build_type": "Release"
+                },
+                "options": {
+                    "fPIC": "True",
+                    "shared": "False"
+                },
+                "options_definitions": {
+                    "shared": [
+                        "True",
+                        "False"
+                    ],
+                    "fPIC": [
+                        "True",
+                        "False"
+                    ]
+                },
+                "generators": [],
+                "python_requires": null,
+                "system_requires": {},
+                "recipe_folder": "/Users/chaitanyag/.conan2/p/hello4b81c163e6fee/e",
+                "source_folder": "/Users/chaitanyag/.conan2/p/b/hello1fcc9b9a059f2/b",
+                "build_folder": "/Users/chaitanyag/.conan2/p/b/hello1fcc9b9a059f2/b/build/Release",
+                "generators_folder": "/Users/chaitanyag/.conan2/p/b/hello1fcc9b9a059f2/b/build/Release/generators",
+                "package_folder": "/Users/chaitanyag/.conan2/p/b/hello1fcc9b9a059f2/p",
+                "immutable_package_folder": "/Users/chaitanyag/.conan2/p/b/hello1fcc9b9a059f2/p",
+                "cpp_info": {
+                    "root": {
+                        "includedirs": [
+                            "/Users/chaitanyag/.conan2/p/b/hello1fcc9b9a059f2/p/include"
+                        ],
+                        "srcdirs": null,
+                        "libdirs": [
+                            "/Users/chaitanyag/.conan2/p/b/hello1fcc9b9a059f2/p/lib"
+                        ],
+                        "resdirs": [],
+                        "bindirs": [
+                            "/Users/chaitanyag/.conan2/p/b/hello1fcc9b9a059f2/p/bin"
+                        ],
+                        "builddirs": null,
+                        "frameworkdirs": null,
+                        "system_libs": null,
+                        "frameworks": null,
+                        "libs": [
+                            "hello"
+                        ],
+                        "defines": null,
+                        "cflags": null,
+                        "cxxflags": null,
+                        "sharedlinkflags": null,
+                        "exelinkflags": null,
+                        "objects": null,
+                        "sysroot": null,
+                        "requires": [],
+                        "properties": null,
+                        "exe": null,
+                        "type": null,
+                        "location": null,
+                        "link_location": null,
+                        "languages": null
+                    }
+                },
+                "conf_info": {},
+                "label": "hello/1.0",
+                "info": {
+                    "settings": {
+                        "os": "Macos",
+                        "arch": "armv8",
+                        "compiler": "apple-clang",
+                        "compiler.cppstd": "gnu17",
+                        "compiler.libcxx": "libc++",
+                        "compiler.version": "15",
+                        "build_type": "Release"
+                    },
+                    "options": {
+                        "fPIC": "True",
+                        "shared": "False"
+                    },
+                    "requires": [
+                        "openssl/1.1.Z"
+                    ]
+                },
+                "vendor": false,
+                "dependencies": {
+                    "2": {
+                        "ref": "openssl/1.1.1c",
+                        "require": "openssl/1.1.1c",
+                        "run": false,
+                        "libs": true,
+                        "skip": false,
+                        "test": false,
+                        "force": false,
+                        "direct": true,
+                        "build": false,
+                        "transitive_headers": null,
+                        "transitive_libs": null,
+                        "headers": true,
+                        "package_id_mode": "minor_mode",
+                        "visible": true
+                    }
+                },
+                "context": "host",
+                "test": false
+            },
+            "2": {
+                "ref": "openssl/1.1.1c#5b07fc39a1fb7fa98bc6dc834c807cc2",
+                "id": "2",
+                "recipe": "Downloaded",
+                "package_id": "4c3c5de243844e53fb6e210768efaae1a0b2fe0c",
+                "prev": "29222a5726e21c42db5d6ac5cefd66f4",
+                "rrev": "5b07fc39a1fb7fa98bc6dc834c807cc2",
+                "rrev_timestamp": 1738274866.915,
+                "prev_timestamp": 1738274867.758,
+                "remote": "cg-lab-conan",
+                "binary_remote": "cg-lab-conan",
+                "build_id": null,
+                "binary": "Download",
+                "invalid_build": false,
+                "info_invalid": null,
+                "name": "openssl",
+                "user": null,
+                "channel": null,
+                "url": null,
+                "license": null,
+                "author": null,
+                "description": null,
+                "homepage": null,
+                "build_policy": null,
+                "upload_policy": null,
+                "revision_mode": "hash",
+                "provides": null,
+                "deprecated": null,
+                "win_bash": null,
+                "win_bash_run": null,
+                "default_options": null,
+                "options_description": null,
+                "version": "1.1.1c",
+                "topics": null,
+                "package_type": "unknown",
+                "languages": [],
+                "settings": {
+                    "os": "Macos",
+                    "arch": "armv8",
+                    "compiler": "apple-clang",
+                    "compiler.cppstd": "gnu17",
+                    "compiler.libcxx": "libc++",
+                    "compiler.version": "15",
+                    "build_type": "Release"
+                },
+                "options": {},
+                "options_definitions": {},
+                "generators": [],
+                "python_requires": null,
+                "system_requires": {},
+                "recipe_folder": "/Users/chaitanyag/.conan2/p/opens2d88b6a9ce38b/e",
+                "source_folder": null,
+                "build_folder": null,
+                "generators_folder": null,
+                "package_folder": "/Users/chaitanyag/.conan2/p/opens27a449631afeb/p",
+                "immutable_package_folder": "/Users/chaitanyag/.conan2/p/opens27a449631afeb/p",
+                "cpp_info": {
+                    "root": {
+                        "includedirs": [
+                            "/Users/chaitanyag/.conan2/p/opens27a449631afeb/p/include"
+                        ],
+                        "srcdirs": null,
+                        "libdirs": [
+                            "/Users/chaitanyag/.conan2/p/opens27a449631afeb/p/lib"
+                        ],
+                        "resdirs": null,
+                        "bindirs": [
+                            "/Users/chaitanyag/.conan2/p/opens27a449631afeb/p/bin"
+                        ],
+                        "builddirs": null,
+                        "frameworkdirs": null,
+                        "system_libs": null,
+                        "frameworks": null,
+                        "libs": null,
+                        "defines": null,
+                        "cflags": null,
+                        "cxxflags": null,
+                        "sharedlinkflags": null,
+                        "exelinkflags": null,
+                        "objects": null,
+                        "sysroot": null,
+                        "requires": [],
+                        "properties": null,
+                        "exe": null,
+                        "type": null,
+                        "location": null,
+                        "link_location": null,
+                        "languages": null
+                    }
+                },
+                "conf_info": {},
+                "label": "openssl/1.1.1c",
+                "info": {
+                    "settings": {
+                        "os": "Macos",
+                        "arch": "armv8",
+                        "compiler": "apple-clang",
+                        "compiler.cppstd": "gnu17",
+                        "compiler.libcxx": "libc++",
+                        "compiler.version": "15",
+                        "build_type": "Release"
+                    }
+                },
+                "vendor": false,
+                "dependencies": {},
+                "context": "host",
+                "test": false
+            }
+        },
+        "root": {
+            "0": "None"
+        },
+        "overrides": {},
+        "resolved_ranges": {},
+        "replaced_requires": {},
+        "error": null
+    }
+}
