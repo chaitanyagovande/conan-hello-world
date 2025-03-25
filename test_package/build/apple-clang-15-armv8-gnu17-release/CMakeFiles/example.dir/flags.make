@@ -4,9 +4,9 @@
 # compile CXX with /Library/Developer/CommandLineTools/usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -isystem /Users/chaitanyag/.conan2/p/b/hello1fcc9b9a059f2/p/include
+CXX_INCLUDES = -isystem /Users/chaitanyag/.conan2/p/b/hellod14e28892c6bf/p/include
 
-CXX_FLAGSarm64 = -stdlib=libc++ -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.0.sdk
+CXX_FLAGSarm64 = -stdlib=libc++ -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
 
-CXX_FLAGS = -stdlib=libc++ -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.0.sdk
+CXX_FLAGS = -stdlib=libc++ -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
 
