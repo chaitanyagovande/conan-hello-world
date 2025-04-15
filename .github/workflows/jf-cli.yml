@@ -56,6 +56,12 @@ jobs:
             # Verify conan config
             conan config list
 
+      - name: "Conan profile"
+        run: |
+            conan profile detect
+            conan profile list
+            conan profile show
+
       - name: "Install Artifactory Conan Extension" 
         run: |
             conan config install https://github.com/conan-io/conan-extensions.git -sf=extensions/commands/art -tf=extensions/commands/art
@@ -133,15 +139,6 @@ jobs:
             conan remote add ${{env.RT_REPO_VIRTUAL}} ${{env.REMOTE_URL}}
             conan remote login -p ${{env.OIDC_TOKEN}} ${{env.RT_REPO_VIRTUAL}} ${{env.OIDC_USER}}
             conan art:server add ${{env.CLI_SERVER_ID}} ${{env.JF_RT_URL}}/artifactory --user=${{env.OIDC_USER}} --token=${{env.OIDC_TOKEN}}
-
-    #   - name: "Conan Cleanup"
-    #     continue-on-error: true
-    #     run: |
-    #         conan remove "openssl/1.1.1c*" -c
-    #         conan remove "openssl/1.1.1c*" -r=${{env.RT_REPO_VIRTUAL}} -c
-    #         conan remove "hello/*" -r=${{env.RT_REPO_VIRTUAL}} -c
-    #         conan remove "hellotest/*" -r=${{env.RT_REPO_VIRTUAL}} -c
-    #         conan remove "hello/*" -c
 
       - name: "Package & Upload"
         run: |
