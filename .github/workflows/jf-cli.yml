@@ -29,6 +29,7 @@ jobs:
       JF_RT_URL: https://psazuse.jfrog.io
       RT_REPO_VIRTUAL: "helloworld-conan-virtual"
       RT_REPO_DEV_LOCAL: "helloworld-conan-dev-local"
+      SERVER: "setup-jfrog-cli-server"
       JSON_PKG_INFO: "package_info.json"
       JSON_BUILD_INFO: "build_info.json"
       RBV2_SIGNING_KEY: "${{secrets.RBV2_SIGNING_KEY}}" # ref https://jfrog.com/help/r/jfrog-artifactory-documentation/create-signing-keys-for-release-bundles-v2
@@ -129,9 +130,9 @@ jobs:
             OIDC_TOKEN: ${{steps.setup-cli.outputs.oidc_token}}
             REMOTE_URL: "${{env.JF_RT_URL}}/artifactory/api/conan/${{env.RT_REPO_VIRTUAL}}"
         run: |
-            conan remote add cg-lab-conan ${{env.REMOTE_URL}}
-            conan remote login cg-lab-conan ${{env.OIDC_USER}} -p ${{env.OIDC_TOKEN}}
-            conan art:server add pscloud-useast ${{env.JF_RT_URL}}/artifactory --user=${{env.OIDC_USER}} --token=${{env.OIDC_TOKEN}}
+            #conan remote add ${{env.RT_REPO_VIRTUAL}} ${{env.REMOTE_URL}}
+            conan remote login ${{env.RT_REPO_VIRTUAL}} ${{env.OIDC_USER}} -p ${{env.OIDC_TOKEN}}
+            conan art:server add ${{env.SERVER}} ${{env.JF_RT_URL}}/artifactory --user=${{env.OIDC_USER}} --token=${{env.OIDC_TOKEN}}
 
       - name: "Conan Cleanup"
         run: |
