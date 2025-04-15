@@ -29,10 +29,6 @@ jobs:
       JF_RT_URL: https://${{vars.JF_NAME}}.jfrog.io
       RT_REPO_VIRTUAL: "helloworld-conan-virtual"
       RT_REPO_DEV_LOCAL: "helloworld-conan-dev-local"
-      EVIDENCE_ARTIFACT_JSON: 'evd-artifact.json'  # ref https://jfrog.com/help/r/jfrog-artifactory-documentation/evidence-setup
-      EVIDENCE_PACKAGE_JSON: 'evd-package.json'
-      EVIDENCE_BUILD_JSON: 'evd-build.json'
-      EVIDENCE_RBv2C_JSON: 'evd-rbv2c.json'
       RBV2_SIGNING_KEY: "${{secrets.RBV2_SIGNING_KEY}}" # ref https://jfrog.com/help/r/jfrog-artifactory-documentation/create-signing-keys-for-release-bundles-v2
       JOB_SUMMARY: false
       JFROG_CLI_LOG_LEVEL: DEBUG # DEBUG, INFO, WARN, ERROR
@@ -63,18 +59,17 @@ jobs:
         uses: jfrog/setup-jfrog-cli@v4
         id: setup-cli
         env:
-          JF_URL: ${{env.JF_RT_URL}}
-          JFROG_CLI_RELEASES_REPO: '${{env.JF_RT_URL}}/artifactory/${{env.RT_REPO_MVN_VIRTUAL}}' 
-          JFROG_CLI_EXTRACTORS_REMOTE: '${{env.JF_RT_URL}}/artifactory/${{env.RT_REPO_MVN_VIRTUAL}}'
+          JF_URL: "https://psazuse.jfrog.io"
           JF_GIT_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
           version: latest  #2.71.0
-          oidc-provider-name: ${{vars.JF_OIDC_PROVIDER_NAME}}
+          oidc-provider-name: "krishnam-github-actions-jfclis"
 
       - name: Clone VCS
         uses: actions/checkout@v4 # ref: https://github.com/actions/checkout
 
       - name: Software version
+        continue-on-error: true
         run: |
           # JFrog CLI version
           jf --version
@@ -102,9 +97,9 @@ jobs:
           pwd
           tree .
 
-      - name: "Docker: prestep-summary"
+      - name: "Setup Summary"
         run: |
-          echo "# :frog: Prestep Summary :pushpin:" >> $GITHUB_STEP_SUMMARY
+          echo "# :frog: Setup Summary :pushpin:" >> $GITHUB_STEP_SUMMARY
           echo " " >> $GITHUB_STEP_SUMMARY
           echo " " >> $GITHUB_STEP_SUMMARY
           echo " - Installed JFrog CLI [$(jf --version)](https://jfrog.com/getcli/) " >> $GITHUB_STEP_SUMMARY
