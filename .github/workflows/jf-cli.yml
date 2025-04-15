@@ -41,12 +41,18 @@ jobs:
     runs-on: ${{matrix.os}}
     timeout-minutes: 30   # ref  https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
-     # https://github.com/marketplace/actions/get-conan
+     # https://docs.conan.io/2/installation.html
       - name: "Install Conan" 
         id: conan
         run: |
+            python --version
+            python3 --version
+            pip --version
+            pip3 --version
+            pip3 install --user --upgrade pip
+            pip3 install --user --upgrade setuptools wheel
             # Install conan
-            curl -sSL https://get.conan.io | python3
+            pip install conan
             # Verify conan version
             conan --version
             # Verify conan config
