@@ -137,7 +137,6 @@ jobs:
             REMOTE_URL: "${{env.JF_RT_URL}}/artifactory/api/conan/${{env.RT_REPO_VIRTUAL}}"
         run: |
             conan remote login -p ${{env.OIDC_TOKEN}} ${{env.RT_REPO_VIRTUAL}} ${{env.OIDC_USER}}
-            conan art:server add ${{env.CLI_SERVER_ID}} ${{env.JF_RT_URL}}/artifactory --user=${{env.OIDC_USER}} --token=${{env.OIDC_TOKEN}}
 
       - name: "Config - art:server add"
         env:
