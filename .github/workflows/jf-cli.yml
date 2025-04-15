@@ -63,7 +63,7 @@ jobs:
           JF_GIT_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
           version: latest  #2.71.0
-          oidc-provider-name: "krishnam-github-actions-jfclis"
+          oidc-provider-name: "krishnam-github-actions-jfcli"
 
       - name: Clone VCS
         uses: actions/checkout@v4 # ref: https://github.com/actions/checkout
