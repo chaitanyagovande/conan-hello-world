@@ -124,15 +124,29 @@ jobs:
           echo "    - Conan - Local repo URL: ${{env.RT_REPO_DEV_LOCAL}}" >> $GITHUB_STEP_SUMMARY
           echo " " >> $GITHUB_STEP_SUMMARY
 
-      - name: "Conan Config"
+      - name: "Config - remote add"
         env:
-            OIDC_USER: "${{steps.setup-cli.outputs.oidc_user}}"
-            OIDC_TOKEN: "${{steps.setup-cli.outputs.oidc_token}}"
             REMOTE_URL: "${{env.JF_RT_URL}}/artifactory/api/conan/${{env.RT_REPO_VIRTUAL}}"
         run: |
             conan remote add ${{env.RT_REPO_VIRTUAL}} ${{env.REMOTE_URL}}
+
+      - name: "Config - remote login"
+        env:
+            OIDC_USER: "${{steps.setup-cli.outputs.oidc-user}}"
+            OIDC_TOKEN: "${{steps.setup-cli.outputs.oidc-token}}"
+            REMOTE_URL: "${{env.JF_RT_URL}}/artifactory/api/conan/${{env.RT_REPO_VIRTUAL}}"
+        run: |
             conan remote login -p ${{env.OIDC_TOKEN}} ${{env.RT_REPO_VIRTUAL}} ${{env.OIDC_USER}}
             conan art:server add ${{env.CLI_SERVER_ID}} ${{env.JF_RT_URL}}/artifactory --user=${{env.OIDC_USER}} --token=${{env.OIDC_TOKEN}}
+
+      - name: "Config - art:server add"
+        env:
+            OIDC_USER: "${{steps.setup-cli.outputs.oidc-user}}"
+            OIDC_TOKEN: "${{steps.setup-cli.outputs.oidc-token}}"
+            REMOTE_URL: "${{env.JF_RT_URL}}/artifactory/api/conan/${{env.RT_REPO_VIRTUAL}}"
+        run: |
+            conan art:server add ${{env.CLI_SERVER_ID}} ${{env.JF_RT_URL}}/artifactory --user=${{env.OIDC_USER}} --token=${{env.OIDC_TOKEN}}
+
 
       - name: "Conan Cleanup"
         run: |
