@@ -148,7 +148,7 @@ jobs:
 
       - name: "Repo: Package"
         run: |
-            conan create . --format=json --build="${{env.BUILD_NAME}}" --remote=${{env.RT_REPO_VIRTUAL}} > ${{env.JSON_PKG_INFO}} 
+            conan create --name=${{env.BUILD_NAME}} --version=${{env.BUILD_ID}} --format=json --build="${{env.BUILD_NAME}}" --remote=${{env.RT_REPO_VIRTUAL}} > ${{env.JSON_PKG_INFO}} 
             conan list
 
       - name: "Repo: Upload"

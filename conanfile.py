@@ -3,7 +3,7 @@ from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout, CMakeDeps
 
 
 class helloRecipe(ConanFile):
-    name = "hello"
+    name = "helloworld-conan"
     version = "1.0"
     package_type = "library"
 
