@@ -140,12 +140,21 @@ jobs:
             conan remote login -p ${{env.OIDC_TOKEN}} ${{env.RT_REPO_VIRTUAL}} ${{env.OIDC_USER}}
             conan art:server add ${{env.CLI_SERVER_ID}} ${{env.JF_RT_URL}}/artifactory --user=${{env.OIDC_USER}} --token=${{env.OIDC_TOKEN}}
 
-      - name: "Package & Upload"
+      - name: "openssl: Package & Upload"
+        continue-on-error: true
         run: |
-            # conan install . -r ${{env.RT_REPO_VIRTUAL}}
+            conan create openssl --build="openssl/1.1.1c*"
+            conan upload "openssl/1.1.1c*" --remote=${{env.RT_REPO_VIRTUAL}} --confirm --force
+
+      - name: "Repo: Package"
+        run: |
             conan create . --format=json --build="${{env.BUILD_NAME}}" --remote=${{env.RT_REPO_VIRTUAL}} > ${{env.JSON_PKG_INFO}} 
             conan list
+
+      - name: "Repo: Upload"
+        run: |
             conan upload "${{env.BUILD_NAME}}" -r=${{env.RT_REPO_VIRTUAL}} --confirm --force
+
 
       - name: "Build Info"
         run: |
