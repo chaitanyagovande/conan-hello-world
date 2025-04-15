@@ -27,8 +27,8 @@ jobs:
       JAVA_PROVIDER: 'corretto'
       JAVA_VERSION: '17'
       JF_RT_URL: "https://psazuse.jfrog.io"
-      RT_REPO_VIRTUAL: "helloworld-conan-virtual"
-      RT_REPO_DEV_LOCAL: "helloworld-conan-dev-local"
+      RT_REPO_VIRTUAL: "cg-lab-conan" # "helloworld-conan-virtual"
+      RT_REPO_DEV_LOCAL: "cg-lab-conan-local" # "helloworld-conan-dev-local"
       CLI_SERVER_ID: "setup-jfrog-cli-server"
       JSON_PKG_INFO: "package_info.json"
       JSON_BUILD_INFO: "build_info.json"
@@ -154,7 +154,6 @@ jobs:
       - name: "Repo: Upload"
         run: |
             conan upload "${{env.BUILD_NAME}}" -r=${{env.RT_REPO_VIRTUAL}} --confirm --force
-
 
       - name: "Build Info"
         run: |
