@@ -26,10 +26,10 @@ jobs:
     env:  
       JAVA_PROVIDER: 'corretto'
       JAVA_VERSION: '17'
-      JF_RT_URL: https://psazuse.jfrog.io
+      JF_RT_URL: "https://psazuse.jfrog.io"
       RT_REPO_VIRTUAL: "helloworld-conan-virtual"
       RT_REPO_DEV_LOCAL: "helloworld-conan-dev-local"
-      SERVER: "setup-jfrog-cli-server"
+      CLI_SERVER_ID: "setup-jfrog-cli-server"
       JSON_PKG_INFO: "package_info.json"
       JSON_BUILD_INFO: "build_info.json"
       RBV2_SIGNING_KEY: "${{secrets.RBV2_SIGNING_KEY}}" # ref https://jfrog.com/help/r/jfrog-artifactory-documentation/create-signing-keys-for-release-bundles-v2
@@ -126,13 +126,13 @@ jobs:
 
       - name: "Conan Config"
         env:
-            OIDC_USER: ${{steps.setup-cli.outputs.oidc_user}}
-            OIDC_TOKEN: ${{steps.setup-cli.outputs.oidc_token}}
+            OIDC_USER: "${{steps.setup-cli.outputs.oidc_user}}"
+            OIDC_TOKEN: "${{steps.setup-cli.outputs.oidc_token}}"
             REMOTE_URL: "${{env.JF_RT_URL}}/artifactory/api/conan/${{env.RT_REPO_VIRTUAL}}"
         run: |
-            #conan remote add ${{env.RT_REPO_VIRTUAL}} ${{env.REMOTE_URL}}
-            conan remote login ${{env.RT_REPO_VIRTUAL}} ${{env.OIDC_USER}} -p ${{env.OIDC_TOKEN}}
-            conan art:server add ${{env.SERVER}} ${{env.JF_RT_URL}}/artifactory --user=${{env.OIDC_USER}} --token=${{env.OIDC_TOKEN}}
+            conan remote add ${{env.RT_REPO_VIRTUAL}} ${{env.REMOTE_URL}}
+            conan remote login -p ${{env.OIDC_TOKEN}} ${{env.RT_REPO_VIRTUAL}} ${{env.OIDC_USER}}
+            conan art:server add ${{env.CLI_SERVER_ID}} ${{env.JF_RT_URL}}/artifactory --user=${{env.OIDC_USER}} --token=${{env.OIDC_TOKEN}}
 
       - name: "Conan Cleanup"
         run: |
@@ -143,20 +143,18 @@ jobs:
             conan remove "hello/*" -c
 
       - name: "Package & Upload"
-        env:
-          BUILD_JSON: "" 
         run: |
-            conan create . --format=json --build="${{env.BUILD_NAME}}" -r=${{env.RT_REPO_VIRTUAL}} > ${{env.JSON_PKG_INFO}} 
-            conan upload ${{env.BUILD_NAME}} -r=${{env.RT_REPO_VIRTUAL}} -c
+            conan install . -r ${{env.RT_REPO_VIRTUAL}}
+            conan create . --format=json --build="${{env.BUILD_NAME}}" --remote=${{env.RT_REPO_VIRTUAL}} > ${{env.JSON_PKG_INFO}} 
+            conan list
+            conan upload "${{env.BUILD_NAME}}" -r=${{env.RT_REPO_VIRTUAL}} --confirm --force
 
       - name: "Build Info"
-        env:
-            SERVER: "setup-jfrog-cli-server" # "${{steps.setup-cli.outputs.server_id}}" # 
         run: |
             TIMESTAMP=$(date +%F_%T)
 
-            conan art:build-info create ${{env.JSON_PKG_INFO}} ${{env.BUILD_NAME}} $TIMESTAMP ${{env.RT_REPO_DEV_LOCAL}} --server ${{env.SERVER}} --with-dependencies > ${{env.JSON_BUILD_INFO}} 
-            conan art:build-info upload ${{env.JSON_BUILD_INFO}} --server ${{env.SERVER}}
+            conan art:build-info create ${{env.JSON_PKG_INFO}} ${{env.BUILD_NAME}} $TIMESTAMP ${{env.RT_REPO_DEV_LOCAL}} --server ${{env.CLI_SERVER_ID}} --with-dependencies > ${{env.JSON_BUILD_INFO}} 
+            conan art:build-info upload ${{env.JSON_BUILD_INFO}} --server ${{env.CLI_SERVER_ID}}
 
 
 
