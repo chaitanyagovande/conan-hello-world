@@ -26,9 +26,11 @@ jobs:
     env:  
       JAVA_PROVIDER: 'corretto'
       JAVA_VERSION: '17'
-      JF_RT_URL: https://${{vars.JF_NAME}}.jfrog.io
+      JF_RT_URL: https://psazuse.jfrog.io
       RT_REPO_VIRTUAL: "helloworld-conan-virtual"
       RT_REPO_DEV_LOCAL: "helloworld-conan-dev-local"
+      JSON_PKG_INFO: "package_info.json"
+      JSON_BUILD_INFO: "build_info.json"
       RBV2_SIGNING_KEY: "${{secrets.RBV2_SIGNING_KEY}}" # ref https://jfrog.com/help/r/jfrog-artifactory-documentation/create-signing-keys-for-release-bundles-v2
       JOB_SUMMARY: false
       JFROG_CLI_LOG_LEVEL: DEBUG # DEBUG, INFO, WARN, ERROR
@@ -39,7 +41,6 @@ jobs:
     steps:
      # https://docs.conan.io/2/installation.html
       - name: "Install Conan" 
-        id: conan
         run: |
             python --version
             python3 --version
@@ -54,15 +55,19 @@ jobs:
             # Verify conan config
             conan config list
 
+      - name: "Install Artifactory Conan Extension" 
+        run: |
+            conan config install https://github.com/conan-io/conan-extensions.git -sf=extensions/commands/art -tf=extensions/commands/art
+
       # Use the specific setup-cli branch. Ref https://github.com/marketplace/actions/setup-jfrog-cli
       - name: Setup JFrog CLI
         uses: jfrog/setup-jfrog-cli@v4
         id: setup-cli
         env:
-          JF_URL: "https://psazuse.jfrog.io"
+          JF_URL: "${{env.JF_RT_URL}}"
           JF_GIT_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
-          version: latest  #2.71.0
+          version: latest 
           oidc-provider-name: "krishnam-github-actions-jfcli"
 
       - name: Clone VCS
@@ -117,3 +122,40 @@ jobs:
           echo "    - Conan - Virtual repo URL: ${{env.RT_REPO_VIRTUAL}}" >> $GITHUB_STEP_SUMMARY
           echo "    - Conan - Local repo URL: ${{env.RT_REPO_DEV_LOCAL}}" >> $GITHUB_STEP_SUMMARY
           echo " " >> $GITHUB_STEP_SUMMARY
+
+      - name: "Conan Config"
+        env:
+            OIDC_USER: ${{steps.setup-cli.outputs.oidc_user}}
+            OIDC_TOKEN: ${{steps.setup-cli.outputs.oidc_token}}
+            REMOTE_URL: "${{env.JF_RT_URL}}/artifactory/api/conan/${{env.RT_REPO_VIRTUAL}}"
+        run: |
+            conan remote add cg-lab-conan ${{env.REMOTE_URL}}
+            conan remote login cg-lab-conan ${{env.OIDC_USER}} -p ${{env.OIDC_TOKEN}}
+            conan art:server add pscloud-useast ${{env.JF_RT_URL}}/artifactory --user=${{env.OIDC_USER}} --token=${{env.OIDC_TOKEN}}
+
+      - name: "Conan Cleanup"
+        run: |
+            conan remove "openssl/1.1.1c*" -c
+            conan remove "openssl/1.1.1c*" -r=${{env.RT_REPO_VIRTUAL}} -c
+            conan remove "hello/*" -r=${{env.RT_REPO_VIRTUAL}} -c
+            conan remove "hellotest/*" -r=${{env.RT_REPO_VIRTUAL}} -c
+            conan remove "hello/*" -c
+
+      - name: "Package & Upload"
+        env:
+          BUILD_JSON: "" 
+        run: |
+            conan create . --format=json --build="${{env.BUILD_NAME}}" -r=${{env.RT_REPO_VIRTUAL}} > ${{env.JSON_PKG_INFO}} 
+            conan upload ${{env.BUILD_NAME}} -r=${{env.RT_REPO_VIRTUAL}} -c
+
+      - name: "Build Info"
+        env:
+            SERVER: "setup-jfrog-cli-server" # "${{steps.setup-cli.outputs.server_id}}" # 
+        run: |
+            TIMESTAMP=$(date +%F_%T)
+
+            conan art:build-info create ${{env.JSON_PKG_INFO}} ${{env.BUILD_NAME}} $TIMESTAMP ${{env.RT_REPO_DEV_LOCAL}} --server ${{env.SERVER}} --with-dependencies > ${{env.JSON_BUILD_INFO}} 
+            conan art:build-info upload ${{env.JSON_BUILD_INFO}} --server ${{env.SERVER}}
+
+
+
