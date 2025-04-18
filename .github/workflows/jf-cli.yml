@@ -163,8 +163,9 @@ jobs:
       - name: "Build Info"
         run: |
             TIMESTAMP=$(date +%F_%T | tr ':' '-') 
+            # conan art:build-info create ${{env.JSON_PKG_INFO}} ${{env.BUILD_NAME}} $TIMESTAMP ${{env.RT_REPO_DEV_LOCAL}} --server ${{env.CLI_SERVER_ID}} --with-dependencies > ${{env.JSON_BUILD_INFO}} 
+            conan art:build-info create ${{env.JSON_PKG_INFO}} ${{env.BUILD_NAME}} ${{env.BUILD_ID}} ${{env.RT_REPO_DEV_LOCAL}} --server ${{env.CLI_SERVER_ID}} --with-dependencies > ${{env.JSON_BUILD_INFO}} 
 
-            conan art:build-info create ${{env.JSON_PKG_INFO}} ${{env.BUILD_NAME}} $TIMESTAMP ${{env.RT_REPO_DEV_LOCAL}} --server ${{env.CLI_SERVER_ID}} --with-dependencies > ${{env.JSON_BUILD_INFO}} 
             conan art:build-info upload ${{env.JSON_BUILD_INFO}} --server ${{env.CLI_SERVER_ID}}
 
       - name: "RLM: RBv2 spec - create" 
