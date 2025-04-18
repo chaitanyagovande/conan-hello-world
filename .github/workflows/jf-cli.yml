@@ -177,4 +177,6 @@ jobs:
         run: |
           jf rbc ${{env.BUILD_NAME}} ${{env.BUILD_ID}} --sync=true --signing-key=${{env.RBV2_SIGNING_KEY}} --spec=${{env.RBv2_SPEC_JSON}}
 
-
+      - name: "RLM: RBv2 promote DEV"
+        run: |
+          jf rbp ${{env.BUILD_NAME}} ${{env.BUILD_ID}} DEV --sync=true --signing-key=${{env.RBV2_SIGNING_KEY}} 
