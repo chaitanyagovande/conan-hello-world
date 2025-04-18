@@ -41,7 +41,7 @@ jobs:
     runs-on: ${{matrix.os}}
     timeout-minutes: 30   # ref  https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
-     # https://docs.conan.io/2/installation.html
+        # https://docs.conan.io/2/installation.html
       - name: "Install Conan" 
         run: |
             python --version
@@ -110,6 +110,10 @@ jobs:
           pwd
           tree .
 
+      - name: Create ENV variables
+        run: |
+          echo "RBv2_SPEC_JSON=RBv2-SPEC-${{env.BUILD_ID}}.json" >> $GITHUB_ENV
+
       - name: "Setup Summary"
         run: |
           echo "# :frog: Setup Summary :pushpin:" >> $GITHUB_STEP_SUMMARY
@@ -163,5 +167,13 @@ jobs:
             conan art:build-info create ${{env.JSON_PKG_INFO}} ${{env.BUILD_NAME}} $TIMESTAMP ${{env.RT_REPO_DEV_LOCAL}} --server ${{env.CLI_SERVER_ID}} --with-dependencies > ${{env.JSON_BUILD_INFO}} 
             conan art:build-info upload ${{env.JSON_BUILD_INFO}} --server ${{env.CLI_SERVER_ID}}
 
+      - name: "RLM: RBv2 spec - create" 
+        run: |
+          echo "{ \"files\": [ {\"build\": \"${{env.BUILD_NAME}}/${{env.BUILD_ID}}\" } ] }"  > ${{env.RBv2_SPEC_JSON}}
+          cat ${{env.RBv2_SPEC_JSON}}
+      
+      - name: "RLM: RBv2 Create NEW"
+        run: |
+          jf rbc ${{env.BUILD_NAME}} ${{env.BUILD_ID}} --sync=true --signing-key=${{env.RBV2_SIGNING_KEY}} --spec=${{env.RBv2_SPEC_JSON}}
 
 
