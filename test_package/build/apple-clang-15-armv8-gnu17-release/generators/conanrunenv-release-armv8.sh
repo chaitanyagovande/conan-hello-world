@@ -1,4 +1,4 @@
-script_folder="/Users/chaitanyag/Desktop/Chaitanya/Development/Customer-Lab/hello-world-test/test_package/build/apple-clang-15-armv8-gnu17-release/generators"
+script_folder="/Users/chaitanyag/Development/Customer-Lab/hello-world-test/test_package/build/apple-clang-15-armv8-gnu17-release/generators"
 echo "echo Restoring environment" > "$script_folder/deactivate_conanrunenv-release-armv8.sh"
 for v in 
 do

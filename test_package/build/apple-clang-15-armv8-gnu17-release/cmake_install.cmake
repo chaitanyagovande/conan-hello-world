@@ -1,8 +1,8 @@
-# Install script for directory: /Users/chaitanyag/Desktop/Chaitanya/Development/Customer-Lab/hello-world-test/test_package
+# Install script for directory: /Users/chaitanyag/Development/Customer-Lab/hello-world-test/test_package
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/Users/chaitanyag/Desktop/Chaitanya/Development/Customer-Lab/hello-world-test/test_package")
+  set(CMAKE_INSTALL_PREFIX "/Users/chaitanyag/Development/Customer-Lab/hello-world-test/test_package")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -40,7 +40,7 @@ endif()
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "/Users/chaitanyag/Desktop/Chaitanya/Development/Customer-Lab/hello-world-test/test_package/build/apple-clang-15-armv8-gnu17-release/install_local_manifest.txt"
+  file(WRITE "/Users/chaitanyag/Development/Customer-Lab/hello-world-test/test_package/build/apple-clang-15-armv8-gnu17-release/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()
 if(CMAKE_INSTALL_COMPONENT)
@@ -56,6 +56,6 @@ else()
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "/Users/chaitanyag/Desktop/Chaitanya/Development/Customer-Lab/hello-world-test/test_package/build/apple-clang-15-armv8-gnu17-release/${CMAKE_INSTALL_MANIFEST}"
+  file(WRITE "/Users/chaitanyag/Development/Customer-Lab/hello-world-test/test_package/build/apple-clang-15-armv8-gnu17-release/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

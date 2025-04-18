@@ -19,7 +19,7 @@
                 "CMAKE_BUILD_TYPE": "Release"
             },
             "toolchainFile": "generators/conan_toolchain.cmake",
-            "binaryDir": "/Users/chaitanyag/Desktop/Chaitanya/Development/Customer-Lab/hello-world-test/test_package/build/apple-clang-15-armv8-gnu17-release"
+            "binaryDir": "/Users/chaitanyag/Development/Customer-Lab/hello-world-test/test_package/build/apple-clang-15-armv8-gnu17-release"
         }
     ],
     "buildPresets": [

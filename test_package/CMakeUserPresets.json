@@ -4,6 +4,7 @@
         "conan": {}
     },
     "include": [
-        "build/apple-clang-15-armv8-gnu17-release/generators/CMakePresets.json"
+        "build/apple-clang-15-armv8-gnu17-release/generators/CMakePresets.json",
+        "build/apple-clang-13-armv8-gnu17-release/generators/CMakePresets.json"
     ]
 }

@@ -3,7 +3,7 @@ set(CMAKE_HOST_SYSTEM_NAME "Darwin")
 set(CMAKE_HOST_SYSTEM_VERSION "24.3.0")
 set(CMAKE_HOST_SYSTEM_PROCESSOR "arm64")
 
-include("/Users/chaitanyag/Desktop/Chaitanya/Development/Customer-Lab/hello-world-test/test_package/build/apple-clang-15-armv8-gnu17-release/generators/conan_toolchain.cmake")
+include("/Users/chaitanyag/Development/Customer-Lab/hello-world-test/test_package/build/apple-clang-15-armv8-gnu17-release/generators/conan_toolchain.cmake")
 
 set(CMAKE_SYSTEM "Darwin-24.3.0")
 set(CMAKE_SYSTEM_NAME "Darwin")

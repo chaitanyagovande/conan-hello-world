@@ -2,7 +2,7 @@
 
 callBase()
 {
-    TIMESTAMP=$(date +%F_%T)
+    TIMESTAMP=$(date +%F_%T | tr ':' '-') 
     BUILDNAME="cg_ansys_conan_hello_build"
     PROJECTKEY="cg-lab"
     DIRNAME="BaseWebGoat"
@@ -13,15 +13,18 @@ callBase()
     echo "Base Script executed from: ${PWD} at $TIMESTAMP"
 
     #CLEAN UP
-    conan remove "openssl/1.1.1c*" -c
-    conan remove "openssl/1.1.1c*" -r=$VIRTUAL_REPO -c
-    conan remove "hello/*" -r=$VIRTUAL_REPO -c
-    conan remove "hellotest/*" -r=$VIRTUAL_REPO -c
-    conan remove "hello/*" -c
+    #conan remove "openssl/1.1.1c" -c
+    #conan remove "openssl/1.1.1c" -r=$VIRTUAL_REPO -c
+    conan remove "hello*/*" -r=$VIRTUAL_REPO -c
+    conan remove "hello*/*" -c
+    conan cache clean
+
+    #conan create openssl --build="openssl/1.1.1c"
+    #conan upload "openssl/1.1.1c" -r=VIRTUAL_REPO -c
 
 
-    conan create . --format=json --build="hello*" -r=$VIRTUAL_REPO > create_output.json
-    conan upload "hello*" -r=$VIRTUAL_REPO -c
+    conan create . --format=json --build="hello/1.0" -r=$VIRTUAL_REPO > create_output.json
+    conan upload "hello/1.0" -r=$VIRTUAL_REPO -c
 
     # Create the buildInfo file.
     conan art:build-info create create_output.json $BUILDNAME $TIMESTAMP $LOCAL_REPO --server $SERVER --with-dependencies > somelib_build.json
